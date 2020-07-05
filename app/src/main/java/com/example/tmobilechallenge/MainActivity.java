@@ -58,71 +58,105 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         progressDialog.dismiss();
                         try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            JSONArray jsonArray = jsonObject.getJSONObject("page").getJSONArray("cards");
-                            System.out.print(response);
+                            JSONObject object = new JSONObject(response);
+                            JSONArray jsonArray = object.getJSONObject("page").getJSONArray("cards");
 
                             for (int i = 0; i < jsonArray.length(); ++i) {
                                 JSONObject outerObject = jsonArray.getJSONObject(i);
                                 String card_type = outerObject.getString("card_type");
-                                JSONObject cardObject = outerObject.getJSONObject("card");
-
                                 ListItem listItem;
 
-                                // One of three constructors below will be called per array listItem
+                                // One of three constructors will be called based on card_type
                                 if (card_type.equals("text")) { // Title only
-                                    String value = cardObject.getString("value");
-                                    JSONObject attributesObject = cardObject.getJSONObject("attributes");
-                                    String color = attributesObject.getString("text_color");
-                                    JSONObject fontObject = attributesObject.getJSONObject("font");
-                                    float size = (float) fontObject.getInt("size");
+                                    String value = outerObject.getJSONObject("card")
+                                            .getString("value");
+                                    String color = outerObject.getJSONObject("card")
+                                            .getJSONObject("attributes")
+                                            .getString("text_color");
+                                    float size = (float) outerObject.getJSONObject("card")
+                                            .getJSONObject("attributes")
+                                            .getJSONObject("font")
+                                            .getInt("size");
 
+                                    // text constructor
                                     listItem = new ListItem(value, color, size);
-                                } else if (card_type.equals("title_description")) { // Title and description
-                                    JSONObject titleObject = cardObject.getJSONObject("title");
-                                    String tValue = titleObject.getString("value");
-                                    JSONObject attributesObject = titleObject.getJSONObject("attributes");
-                                    String tColor = attributesObject.getString("text_color");
-                                    JSONObject fontObject = attributesObject.getJSONObject("font");
-                                    float tSize = fontObject.getInt("size");
+                                } else if (card_type.equals("title_description")) { // Title and description*/
+                                    String tValue = outerObject.getJSONObject("card")
+                                            .getJSONObject("title")
+                                            .getString("value");
+                                    String tColor = outerObject.getJSONObject("card")
+                                            .getJSONObject("title")
+                                            .getJSONObject("attributes")
+                                            .getString("text_color");
+                                    float tSize = outerObject.getJSONObject("card")
+                                            .getJSONObject("title")
+                                            .getJSONObject("attributes")
+                                            .getJSONObject("font")
+                                            .getInt("size");
 
-                                    JSONObject descriptionObject = cardObject.getJSONObject("description");
-                                    String dValue = descriptionObject.getString("value");
-                                    JSONObject dAttributesObject = descriptionObject.getJSONObject("attributes");
-                                    String dColor = dAttributesObject.getString("text_color");
-                                    JSONObject dFontObject = dAttributesObject.getJSONObject("font");
-                                    float dSize = (float) dFontObject.getInt("size");
+                                    String dValue = outerObject.getJSONObject("card")
+                                            .getJSONObject("description")
+                                            .getString("value");
+                                    String dColor = outerObject.getJSONObject("card")
+                                            .getJSONObject("description")
+                                            .getJSONObject("attributes")
+                                            .getString("text_color");
+                                    float dSize = (float) outerObject.getJSONObject("card")
+                                            .getJSONObject("description")
+                                            .getJSONObject("attributes")
+                                            .getJSONObject("font")
+                                            .getInt("size");
 
+                                    // title_description constructor
                                     listItem = new ListItem(tValue, tColor, tSize,
                                             dValue, dColor, dSize);
                                 } else { // Title, description, and image
-                                    JSONObject titleObject = cardObject.getJSONObject("title");
-                                    String tValue = titleObject.getString("value");
-                                    JSONObject attributesObject = titleObject.getJSONObject("attributes");
-                                    String tColor = attributesObject.getString("text_color");
-                                    JSONObject fontObject = attributesObject.getJSONObject("font");
-                                    float tSize = (float) fontObject.getInt("size");
+                                    String tValue = outerObject.getJSONObject("card")
+                                            .getJSONObject("title")
+                                            .getString("value");
+                                    String tColor = outerObject.getJSONObject("card")
+                                            .getJSONObject("title")
+                                            .getJSONObject("attributes")
+                                            .getString("text_color");
+                                    float tSize = (float) outerObject.getJSONObject("card")
+                                            .getJSONObject("title")
+                                            .getJSONObject("attributes")
+                                            .getJSONObject("font")
+                                            .getInt("size");
 
-                                    JSONObject descriptionObject = cardObject.getJSONObject("description");
-                                    String dValue = descriptionObject.getString("value");
-                                    JSONObject dAttributesObject = descriptionObject.getJSONObject("attributes");
-                                    String dColor = dAttributesObject.getString("text_color");
-                                    JSONObject dFontObject = dAttributesObject.getJSONObject("font");
-                                    float dSize = (float) dFontObject.getInt("size");
+                                    String dValue = outerObject.getJSONObject("card")
+                                            .getJSONObject("description")
+                                            .getString("value");
+                                    String dColor = outerObject.getJSONObject("card")
+                                            .getJSONObject("description")
+                                            .getJSONObject("attributes")
+                                            .getString("text_color");
+                                    float dSize = (float) outerObject.getJSONObject("card")
+                                            .getJSONObject("description")
+                                            .getJSONObject("attributes")
+                                            .getJSONObject("font")
+                                            .getInt("size");
 
-                                    JSONObject imageObject = cardObject.getJSONObject("image");
-                                    String url = imageObject.getString("url");
-                                    JSONObject sizeObject = imageObject.getJSONObject("size");
-                                    int width = sizeObject.getInt("width");
-                                    int height = sizeObject.getInt("height");
+                                    String url = outerObject.getJSONObject("card")
+                                            .getJSONObject("image")
+                                            .getString("url");
+                                    int width = outerObject.getJSONObject("card")
+                                            .getJSONObject("image")
+                                            .getJSONObject("size")
+                                            .getInt("width");
+                                    int height = outerObject.getJSONObject("card")
+                                            .getJSONObject("image")
+                                            .getJSONObject("size")
+                                            .getInt("height");
 
+                                    // image_title_description constructor
                                     listItem = new ListItem(tValue, tColor, tSize,
                                             dValue, dColor, dSize,
                                             url, width, height);
                                 }
                                 listItems.add(listItem);
                             }
-                            adapter = new MyAdapter(listItems, getApplicationContext());
+                            adapter = new MyAdapter(listItems, getApplicationContext()); // Initialize ViewHolders
                             recyclerView.setAdapter(adapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
