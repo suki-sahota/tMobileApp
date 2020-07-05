@@ -29,36 +29,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
         final View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ListItem listItem = listItems.get(position);
-
-        // text
-        holder.textViewTitle.setText(listItem.gettValue());
-        holder.textViewTitle.setTextColor(Color.parseColor(listItem.gettColor()));
-        holder.textViewTitle.setTextSize(listItem.gettSize());
-
-        // title_description
-        if (listItem.getSize() > 3) {
-            holder.textViewDescription.setText(listItem.getdValue());
-            holder.textViewDescription.setTextColor(Color.parseColor(listItem.getdColor()));
-            holder.textViewDescription.setTextSize(listItem.getdSize());
-        }
-
-        // image_title_description
-        if (listItem.getSize() > 6) {
-            Picasso.get()
-                    .load(listItem.getUrl())
-                    .into(holder.imageView);
-            holder.imageView.getLayoutParams().width = listItem.getWidth();
-            holder.imageView.getLayoutParams().height = listItem.getHeight();
-        }
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        ((ViewHolder) holder).bindData(listItems.get(position));
     }
 
     @Override
@@ -66,13 +45,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         return listItems.size();
     }
 
-    // Inner class
+    // Separate our concerns with an inner class
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         // Inner class instance variables
-        public TextView textViewTitle;
-        public TextView textViewDescription;
-        public ImageView imageView;
+        private TextView textViewTitle;
+        private TextView textViewDescription;
+        private ImageView imageView;
 
         // Inner class constructor
         public ViewHolder(@NonNull final View itemView) {
@@ -80,6 +59,28 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             textViewTitle = (TextView) itemView.findViewById(R.id.title);
             textViewDescription = (TextView) itemView.findViewById(R.id.description);
             imageView = (ImageView) itemView.findViewById(R.id.image);
+        }
+
+        // Bind data here to allow for 'dumb' adapter
+        public void bindData(final ListItem listItem) {
+            // text
+            textViewTitle.setText(listItem.gettValue());
+            textViewTitle.setTextColor(Color.parseColor(listItem.gettColor()));
+            textViewTitle.setTextSize(listItem.gettSize());
+
+            // title_description
+            if (listItem.getSize() > 3) {
+                textViewDescription.setText(listItem.getdValue());
+                textViewDescription.setTextSize(listItem.getdSize());
+                textViewDescription.setTextColor(Color.parseColor(listItem.getdColor()));
+            }
+
+            // image_title_description
+            if (listItem.getSize() > 6) {
+                Picasso.get().load(listItem.getUrl()).into(imageView);
+                imageView.getLayoutParams().width = listItem.getWidth();
+                imageView.getLayoutParams().height = listItem.getHeight();
+            }
         }
     }
 }
