@@ -5,9 +5,9 @@ public class ListItem {
     // Instance variables start
     // ------------------------
     // text
-    private String tValue = "";
-    private String tColor = "";
-    private float tSize = 0.0f;
+    private String tValue;
+    private String tColor;
+    private float tSize;
 
     // title_description
     private String dValue = "";
@@ -26,7 +26,7 @@ public class ListItem {
     // Constructors start
     // ------------------------
     // text constructor
-    public ListItem(String tValue, String tColor, float tSize) {
+    public ListItem(final String tValue, final String tColor, final float tSize) {
         this.tValue = tValue;
         this.tColor = tColor;
         this.tSize = tSize;
@@ -34,8 +34,8 @@ public class ListItem {
     }
 
     // title_description constructor
-    public ListItem(String tValue, String tColor, float tSize,
-                    String dValue, String dColor, float dSize) {
+    public ListItem(final String tValue, final String tColor, final float tSize,
+                    final String dValue, final String dColor, final float dSize) {
         this.tValue = tValue;
         this.tColor = tColor;
         this.tSize = tSize;
@@ -46,9 +46,9 @@ public class ListItem {
     }
 
     // image_title_description constructor
-    public ListItem(String tValue, String tColor, float tSize,
-                    String dValue, String dColor, float dSize,
-                    String url, int width, int height) {
+    public ListItem(final String tValue, final String tColor, final float tSize,
+                    final String dValue, final String dColor, final float dSize,
+                    final String url, final int width, final int height) {
         this.tValue = tValue;
         this.tColor = tColor;
         this.tSize = tSize;
