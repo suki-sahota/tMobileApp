@@ -10,14 +10,14 @@ public class ListItem {
     private float tSize;
 
     // title_description
-    private String dValue = "";
-    private String dColor = "";
-    private float dSize = 0.0f;
+    private String dValue;
+    private String dColor;
+    private float dSize;
 
     // image_title_description
-    private String url = "";
-    private int width = 0;
-    private int height = 0;
+    private String url;
+    private int width;
+    private int height;
 
     private int size;
     // ------------------------

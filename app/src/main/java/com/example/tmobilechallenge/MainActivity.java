@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
                                     // text constructor
                                     listItem = new ListItem(value, color, size);
-                                } else if (card_type.equals("title_description")) { // Title and description*/
+                                } else if (card_type.equals("title_description")) { // Title and description
                                     String tValue = outerObject.getJSONObject("card")
                                             .getJSONObject("title")
                                             .getString("value");
